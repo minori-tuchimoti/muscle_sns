@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>新規投稿</title>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <h1>トレーニング投稿</h1>
+
+    <form th:action="@{/posts/create}" th:object="${post}" method="post">
+      <textarea th:field="*{content}" placeholder="今日のトレーニング内容を書こう！" rows="5" cols="40"></textarea><br>
+      <button type="submit">投稿</button>
+    </form>
+
+    <a th:href="@{/home}"> HOME </a>
+  </body>
+</html>

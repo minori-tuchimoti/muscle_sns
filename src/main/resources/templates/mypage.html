@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <title>マイページ</title>
+  </head>
+
+  <body>
+    <h1>My Page</h1>
+    <p><strong th:text="${username}"></strong>さんの投稿一覧</p>
+
+    <div th:if="${profileImage != null}">
+      <img th:src="@{'/uploads/' + ${profileImage}}" alt="プロフィール画像" width="150" height="150">
+    </div>
+    <div th:if="${profileImage == null}">
+      <p>プロフィール画像が設定されてません。</p>
+    </div>
+
+    <a th:href="@{/mypage/edit}">編集</a>
+
+    <a th:href="@{/home}">HOME</a>
+    <hr>
+
+    <div th:if="${#lists.isEmpty(posts)}">
+      <p>投稿はまだありません。</p>
+    </div>
+
+    <div th:each="post : ${posts}">
+      <p th:text="${post.content}"></p>
+      <p th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></p>
+      <hr>
+    </div>
+  </body>
+</html>

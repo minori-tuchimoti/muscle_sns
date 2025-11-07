@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Home</title>
+  </head>
+  <body>
+
+    <h1>Welcome Home!</h1>
+
+    <p>こんにちは！<span th:text="${username}"></span>さん！</p>
+
+    <form th:action="@{/logout}" method="post">
+      <button type="submit">logout</button>
+    </form>
+
+    <a th:href="@{/mypage}">My Page</a>
+    <br>
+
+    <a th:href="@{/posts/new}">新規投稿</a>
+    <hr>
+
+    <div th:if="${#lists.isEmpty(posts)}">
+      <p>NO POSTS</p>
+    </div>
+
+    <div th:each="post : ${posts}">
+      <p><strong th:text="${post.user.username}">USERNAME</strong></p>
+      <p th:text="${post.content}">POST</p>
+      <p th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></p>
+      <hr>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <title>プロフィール編集</title>
+  </head>
+
+  <body>
+    <h1>プロフィール編集</h1>
+
+    <div th:if="${user.profileImage != null}">
+      <img th:src="@{'/uploads/' + ${user.profileImage}}" alt="現在の画像" width="150" height="150"/>
+    </div>
+
+    <form th:action="@{/mypage/upload}" method="post" enctype="multipart/form-data">
+      <input type="file" name="image" accept="image/*">
+      <button type="submit">UP LOAD</button>
+    </form>
+
+    <a th:href="@{/mypage}">MY PAGE</a>
+  </body>
+</html>
