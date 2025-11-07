@@ -9,11 +9,9 @@
     <h1>My Page</h1>
     <p><strong th:text="${username}"></strong>さんの投稿一覧</p>
 
-    <div th:if="${profileImage != null}">
-      <img th:src="@{'/uploads/' + ${profileImage}}" alt="プロフィール画像" width="150" height="150">
-    </div>
-    <div th:if="${profileImage == null}">
-      <p>プロフィール画像が設定されてません。</p>
+    <div>
+      <img th:src="@{${profileImage} != null ? '/uploads/' + ${profileImage} : '/images/no_image.jpg'}"
+           alt="プロフィール画像" width="150" height="150">
     </div>
 
     <a th:href="@{/mypage/edit}">編集</a>
