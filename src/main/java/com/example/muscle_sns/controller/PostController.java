@@ -22,6 +22,27 @@ public class PostController {
     this.userRepository = userRepository;
   }
 
+  @GetMapping("/edit/{id}")
+  public String editPost(@PathVariable Long id, Model model) {
+    Post post = postRepository.findById(id).orElseThrow();
+    model.addAttribute("post", post);
+    return "edit_post";
+  }
+
+  @PostMapping("/update/{id}")
+  public String updatePost(@PathVariable Long id, @RequestParam String content) {
+    Post post = postRepository.findById(id).orElseThrow();
+    post.setContent(content);
+    postRepository.save(post);
+    return "redirect:/home";
+  }
+
+  @PostMapping("/delete/{id}")
+  public String deletePost(@PathVariable Long id) {
+    postRepository.deleteById(id);
+    return "redirect:/home";
+  }
+
   @GetMapping("/new")
   public String showPostForm(Model model) {
     model.addAttribute("post", new Post());
