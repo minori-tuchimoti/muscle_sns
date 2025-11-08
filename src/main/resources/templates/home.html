@@ -12,7 +12,7 @@
       <p class="fs-5">こんにちは！<strong th:text="${username}"></strong>さん！</p>
 
       <div class="md-3">
-        <a th:href="@{/mypage}" class="btn-outline-primary me-2">My Page</a>
+        <a th:href="@{/mypage}" class="btn btn-info me-2">My Page</a>
         <a th:href="@{/posts/new}" class="btn btn-primary me-2">新規投稿</a>
 
         <form th:action="@{/logout}" method="post" class="d-inline">

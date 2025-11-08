@@ -30,6 +30,30 @@ public class UserController{
     return "edit_profile";
   }
 
+  @PostMapping("/mypage/update")
+  public String updateProfile(
+      @AuthenticationPrincipal UserDetails userDetails,
+      @RequestParam String bio,
+      @RequestParam String hobbies,
+      @RequestParam Integer age,
+      @RequestParam Double height,
+      @RequestParam Double weight,
+      @RequestParam String location
+  ) {
+      User user = userRepository.findByUsername(userDetails.getUsername());
+
+      user.setBio(bio);
+      user.setHobbies(hobbies);
+      user.setAge(age);
+      user.setHeight(height);
+      user.setWeight(weight);
+      user.setLocation(location);
+
+      userRepository.save(user);
+
+      return "redirect:/mypage";
+  }
+
   @PostMapping("/mypage/upload")
   public String uploadProfileImage(@AuthenticationPrincipal UserDetails userDetails, @RequestParam("image") MultipartFile file) throws IOException {
 

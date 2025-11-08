@@ -18,4 +18,11 @@ public class User {
   private String password;
 
   private String profileImage;
+
+  private Double height;  //身長
+  private Double weight;  //体重
+  private Integer age;  //年齢
+  private String location;  //住んでるところ
+  private String bio;  //自己紹介
+  private String hobbies;  //趣味
 }

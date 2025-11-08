@@ -31,6 +31,12 @@ public class MypageController {
 
       model.addAttribute("username", user.getUsername());
       model.addAttribute("profileImage", user.getProfileImage());
+      model.addAttribute("height", user.getHeight());
+      model.addAttribute("weight", user.getWeight());
+      model.addAttribute("age", user.getAge());
+      model.addAttribute("location", user.getLocation());
+      model.addAttribute("bio", user.getBio());
+      model.addAttribute("hobbies", user.getHobbies());
       model.addAttribute("posts", userPosts);
     }
 
