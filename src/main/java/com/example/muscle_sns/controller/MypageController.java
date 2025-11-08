@@ -42,4 +42,5 @@ public class MypageController {
 
     return "mypage";
   }
+
 }

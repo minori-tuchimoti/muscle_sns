@@ -1,5 +1,7 @@
 package com.example.muscle_sns.entity;
 
+import java.util.List;
+import com.example.muscle_sns.entity.Post;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -25,4 +27,7 @@ public class User {
   private String location;  //住んでるところ
   private String bio;  //自己紹介
   private String hobbies;  //趣味
+
+  @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+  private List<Post> posts;
 }

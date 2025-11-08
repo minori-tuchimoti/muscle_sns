@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -74,6 +76,17 @@ public class UserController{
     }
 
     return "redirect:/mypage";
+  }
+
+  @PostMapping("/mypage/delete")
+  public String deleteAccount(@AuthenticationPrincipal UserDetails userDetails) {
+    if(userDetails != null) {
+      User user = userRepository.findByUsername(userDetails.getUsername());
+      userRepository.delete(user);
+      SecurityContextHolder.clearContext();
+    }
+
+    return "redirect:/login";
   }
   
 }
