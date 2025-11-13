@@ -18,12 +18,19 @@
     <div>
       <img th:if="${profileImage != null}"
            th:src="@{'/uploads/' + ${profileImage}}"
-           alt="プロフィール画像" width="150" height="150">
+           alt="プロフィール画像"
+           style="max-width: 100%; height:auto; display: block;">
 
       <img th:if="${profileImage == null}"
            th:src="@{/images/no_image.jpg}"
-           alt="プロフィール画像" width="150" height="150">
+           alt="プロフィール画像"
+           style="max-width: 100%; height: auto; display: block;">
     </div>
+
+    <div style="margin-top: 20px;">
+      <a th:href="@{/mypage/liked}">いいね一覧</a>
+    </div>
+
 
     <div style="margin-top: 15px;">
       <h2>プロフィール</h2>

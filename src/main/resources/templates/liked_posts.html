@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <title>いいね一覧</title>
+  </head>
+
+  <body>
+    <h1 th:text="${username} + 'さんのいいねした投稿一覧'"></h1>
+
+    <div th:if="${#lists.isEmpty(likedPosts)}">
+      <p>まだいいねした投稿はありません</p>
+    </div>
+
+    <div th:each="post : ${likedPosts}">
+      <p th:text="${post.content}"></p>
+      <p th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></p>
+      <hr>
+    </div>
+
+    <a th:href="@{/mypage}">MY PAGE</a>
+    <a th:href="@{/home}">HOME</a>
+    
+  </body>
+</html>

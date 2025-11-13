@@ -4,6 +4,7 @@ import com.example.muscle_sns.entity.Like;
 import com.example.muscle_sns.entity.Post;
 import com.example.muscle_sns.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
 
 public interface LikeRepository extends JpaRepository<Like, Long> {
   
@@ -12,4 +13,6 @@ public interface LikeRepository extends JpaRepository<Like, Long> {
   int countByPost(Post post);
 
   Like findByUserAndPost(User user, Post post);
+
+  List<Like> findByUser(User user);
 }

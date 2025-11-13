@@ -1,7 +1,9 @@
 package com.example.muscle_sns.controller;
 
+import com.example.muscle_sns.entity.Like;
 import com.example.muscle_sns.entity.Post;
 import com.example.muscle_sns.entity.User;
+import com.example.muscle_sns.repository.LikeRepository;
 import com.example.muscle_sns.repository.PostRepository;
 import com.example.muscle_sns.repository.UserRepository;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,10 +18,12 @@ import java.util.List;
 @Controller
 public class MypageController {
   
+  private final LikeRepository likeRepository;
   private final PostRepository postRepository;
   private final UserRepository userRepository;
 
-  public MypageController(PostRepository postRepository, UserRepository userRepository) {
+  public MypageController(LikeRepository likeRepository, PostRepository postRepository, UserRepository userRepository) {
+    this.likeRepository = likeRepository;
     this.postRepository = postRepository;
     this.userRepository = userRepository;
   }
@@ -51,7 +55,23 @@ public class MypageController {
       boolean isOwnPage = id == null || user.getUsername().equals(userDetails.getUsername());
       model.addAttribute("isOwnPage", isOwnPage);
 
+      List<Like> likes = likeRepository.findByUser(user);
+      List<Post> likedPosts = likes.stream().map(Like::getPost).toList();
+      model.addAttribute("likedPosts", likedPosts);
+
     return "mypage";
+  }
+
+  @GetMapping("/mypage/liked")
+  public String likedPostsPage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+    User user = userRepository.findByUsername(userDetails.getUsername());
+
+    List<Like> likes = likeRepository.findByUser(user);
+    List<Post> likedPosts = likes.stream().map(Like::getPost).toList();
+    model.addAttribute("likedPosts", likedPosts);
+    model.addAttribute("username", user.getUsername());
+
+    return "liked_posts";
   }
 
 }
