@@ -45,7 +45,7 @@
 
           <div>
             <strong class="fs-6" th:text="${post.user.username}"></strong><br>
-            <span th:text="${post.content}" class="d-block mt-1"></span>
+            <span th:text="${post.content}" class="post-content"></span>
             <small class="text-muted" th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></small>
 
             <div th:if="${post.user.username == username}" class="mt-2">
@@ -76,30 +76,38 @@
           </div>
         </div>
         
-
         <div class="mt-2 ms-5">
-          <div th:each="comment : ${post.comments}" class="comment-item" th:data-comment-id="${comment.id}">
-            <strong th:text="${comment.user.username}"></strong>:
-            <span class="comment-content" th:text="${comment.content}"></span>
+          <button type="button"
+                  class="btn btn-sm btn-outline-secondary comment-toggle-btn"
+                  th:data-post-id="${post.id}">
+              💬 (<span th:text="${post.comments.size()}"></span>件)
+          </button>
 
-            <span th:if="${comment.user.username == username}">
-              <button type="button" class="btn btn-sm btn-outline-danger comment-delete-btn" th:data-comment-id="${comment.id}">削除</button>
-              <button type="button" class="btn btn-sm btn-outline-primary comment-edit-btn" th:data-comment-id="${comment.id}">編集</button>
-            </span>
+          <div class="comment-area" th:id="'comments-post-' + ${post.id}" style="display:none;">
 
-            <div class="comment-edit-form mt-1" th:data-comment-id="${comment.id}" style="display:none;">
-              <textarea class="form-control mb-1 comment-edit-content" required th:text="${comment.content}"></textarea>
-              <button type="button" class="btn btn-primary btn-sm comment-save-btn" th:data-comment-id="${comment.id}">保存</button>
-              <button type="button" class="btn btn-secondary btn-sm comment-cancel-btn" th:data-comment-id="${comment.id}">キャンセル</button>
+            <div th:each="comment : ${post.comments}" class="comment-item" th:data-comment-id="${comment.id}">
+              <strong th:text="${comment.user.username}"></strong>:
+              <span class="comment-content" th:text="${comment.content}"></span>
+
+              <span th:if="${comment.user.username == username}">
+                <button type="button" class="btn btn-sm btn-outline-danger comment-delete-btn" th:data-comment-id="${comment.id}">削除</button>
+                <button type="button" class="btn btn-sm btn-outline-primary comment-edit-btn" th:data-comment-id="${comment.id}">編集</button>
+              </span>
+
+              <div class="comment-edit-form mt-1" th:data-comment-id="${comment.id}" style="display:none;">
+                <textarea class="form-control mb-1 comment-edit-content" required th:text="${comment.content}"></textarea>
+                <button type="button" class="btn btn-primary btn-sm comment-save-btn" th:data-comment-id="${comment.id}">保存</button>
+                <button type="button" class="btn btn-secondary btn-sm comment-cancel-btn" th:data-comment-id="${comment.id}">キャンセル</button>
+              </div>
             </div>
 
+            <form class="comment-add-form mt-2" th:data-post-id="${post.id}" th:if="${post.user.username != username}">
+              <input type="hidden" name="postId" th:value="${post.id}" />
+              <input type="text" name="content" placeholder="コメントを書く,,," class="form-control d-inline-block w-75" required>
+              <button type="submit" class="btn btn-sm btn-primary mt-1">送信</button>
+            </form>
           </div>
-
-          <form class="comment-add-form mt-2" th:data-post-id="${post.id}" th:if="${post.user.username != username}">
-            <input type="hidden" name="postId" th:value="${post.id}" />
-            <input type="text" name="content" placeholder="コメントを書く,,," class="form-control d-inline-block w-75" required>
-            <button type="submit" class="btn btn-sm btn-primary mt-1">送信</button>
-          </form>
+        </div>
 
           <hr class="mt-3">
 

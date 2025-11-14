@@ -39,6 +39,16 @@ body {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.post-content {
+  background-color: #FFF0D9;
+  padding: 10px 15px;
+  border-radius: 10px;
+  margin-top: 8px;
+  display: inline-block;
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
 .post-card:hover {
   transform: translatey(-3px);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
@@ -88,8 +98,12 @@ body {
   border-radius: 10px;
 }
 
+.comment-toggle-btn {
+  margin-bottom: 8px;
+}
+
 hr {
   border: none;
   border-top: 2px dashed #FFD580;
-  margin:150px 0;
+  margin:15px 0;
 }

@@ -107,6 +107,18 @@ document.addEventListener("DOMContentLoaded", () => {
           item.querySelector(".comment-edit-btn").style.display = "inline";
         }
       });
+
     }
   });
+
+  document.querySelectorAll(".comment-toggle-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const postId = btn.dataset.postId;
+      const area = document.getElementById(`comments-post-${postId}`);
+      if (!area) return;
+  
+      area.style.display = (area.style.display === "none") ? "block" : "none";
+    });
+  });
 });
+
